@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="A Semantically Disentangled Unified Model for Multi-category 3D Anomaly Detection.">
+        content="Towards Generalizable 3D Anomaly Detection via Relational Inconsistency Modeling.">
   <meta name="keywords" content="3D Anomaly Detection, 3D Point Cloud, Semantically Disentangled Reconstruction">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>A Semantically Disentangled Unified Model for Multi-category 3D Anomaly Detection</title>
+  <title>Towards Generalizable 3D Anomaly Detection via Relational Inconsistency Modeling</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -94,7 +94,7 @@
               </span>
 
               <span class="link-block">
-                <a href="https://github.com/VisualScienceLab-KHU/SeDiR"
+                <a href="https://github.com/VisualScienceLab-KHU/GRIM"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fab fa-github"></i></span>
                   <span>Code</span>
@@ -105,7 +105,7 @@
 
           <!-- Balanced tagline (MoTAR + CORE), with CORE weight in wording (no highlight here) -->
           <p class="tagline">
-            SeDiR resolves <b>Inter-Category Entanglement</b> in unified 3D anomaly detection<br>
+            GRIM resolves <b>Inter-Category Entanglement</b> in unified 3D anomaly detection<br>
             by learning category-aware semantics before reconstruction and guiding reconstruction with geometric evidence.
           </p>
 
@@ -125,10 +125,10 @@
       <div class="column is-four-fifths">
         <figure class="image">
           <!-- TEMP now: teaser.jpeg (Figure 2). LATER: change to teaser.gif -->
-          <img class="figure-wide" src="./static/images/figure1.png" alt="SeDiR teaser">
+          <img class="figure-wide" src="./static/images/figure1.png" alt="GRIM teaser">
         </figure>
         <p class="figure-caption">
-          Teaser: an overview of <b>SeDiR</b>. Category-specific models require a separate model for each class, while naive unified models often suffer from inter-category feature entanglement. SeDiR addresses this problem by aggregating coarse-to-fine geometric cues into category-aware global features, disentangling them via Category-Conditioned Contrastive Learning, and guiding reconstruction with input geometry.
+          Teaser: an overview of <b>GRIM</b>. Category-specific models require a separate model for each class, while naive unified models often suffer from inter-category feature entanglement. GRIM addresses this problem by aggregating coarse-to-fine geometric cues into category-aware global features, disentangling them via Category-Conditioned Contrastive Learning, and guiding reconstruction with input geometry.
         </p>
       </div>
     </div>
@@ -196,12 +196,12 @@
 
         <div class="content has-text-justified">
           <p>
-            Prior 3D anomaly detection methods are largely category-specific, requiring a separate model for each object class. Although recent unified methods improve scalability by training a single model across multiple categories, they often fail to preserve semantic identity in the latent space. As a result, the model may reconstruct an object under the wrong category prior, even when the input is normal. SeDiR addresses this limitation by explicitly disentangling category-level semantics before reconstruction and by conditioning reconstruction on both semantic and geometric priors.
+            Prior 3D anomaly detection methods are largely category-specific, requiring a separate model for each object class. Although recent unified methods improve scalability by training a single model across multiple categories, they often fail to preserve semantic identity in the latent space. As a result, the model may reconstruct an object under the wrong category prior, even when the input is normal. GRIM addresses this limitation by explicitly disentangling category-level semantics before reconstruction and by conditioning reconstruction on both semantic and geometric priors.
           </p>
 
           <!-- (1/2) only: highlight a single key sentence about CORE -->
           <p class="note-box note-core">
-            <span class="hl-core"><b>Key point:</b> the central issue is not simply reconstructing anomalies, but reconstructing before <b>understanding what is being reconstructed</b>. SeDiR resolves this by establishing semantic identity first and reconstructing second.</span>
+            <span class="hl-core"><b>Key point:</b> the central issue is not simply reconstructing anomalies, but reconstructing before <b>understanding what is being reconstructed</b>. GRIM resolves this by establishing semantic identity first and reconstructing second.</span>
           </p>
         </div>
       </div>
@@ -227,7 +227,7 @@
           <img class="figure-wide" src="./static/images/figure2.png" alt="WVAD paradigms comparison">
         </figure>
         <p class="figure-caption">
-          T-SNE visualization and quantitative analysis of semantic disentanglement. Compared with MC3D-AD, SeDiR forms better-separated category-aware manifolds, improves category classification confidence, and reduces normal reconstruction error.
+          T-SNE visualization and quantitative analysis of semantic disentanglement. Compared with MC3D-AD, GRIM forms better-separated category-aware manifolds, improves category classification confidence, and reduces normal reconstruction error.
         </p>
       </div>
     </div>
@@ -246,16 +246,16 @@
 
         <div class="content has-text-justified">
           <p>
-            SeDiR follows a simple principle: <b>understand what to reconstruct</b> before deciding how to reconstruct. Given an input point cloud, SeDiR first extracts multi-resolution geometric features and aggregates them into a category-aware global token. It then disentangles category semantics in the latent space and reconstructs features using both semantic priors and geometry-guided cues. This design enables semantically aligned and geometrically consistent reconstruction in the unified multi-category setting.
+            GRIM follows a simple principle: <b>understand what to reconstruct</b> before deciding how to reconstruct. Given an input point cloud, GRIM first extracts multi-resolution geometric features and aggregates them into a category-aware global token. It then disentangles category semantics in the latent space and reconstructs features using both semantic priors and geometry-guided cues. This design enables semantically aligned and geometrically consistent reconstruction in the unified multi-category setting.
           </p>
         </div>
 
         <!-- Keep this figure even if teaser is currently Fig.2 -->
         <figure class="image">
-          <img class="figure-wide" src="./static/images/figure3.png" alt="Overall architecture of SeDiR">
+          <img class="figure-wide" src="./static/images/figure3.png" alt="Overall architecture of GRIM">
         </figure>
         <p class="figure-caption">
-          Overall architecture of SeDiR. Our framework consists of two stages: Semantically Disentangled Representation Learning and Semantically Disentangled Reconstruction. CFGT forms a category-aware global token from multi-resolution geometric features, C3L disentangles latent semantics, and GGD reconstructs the object conditioned on both semantic and geometric priors.
+          Overall architecture of GRIM. Our framework consists of two stages: Semantically Disentangled Representation Learning and Semantically Disentangled Reconstruction. CFGT forms a category-aware global token from multi-resolution geometric features, C3L disentangles latent semantics, and GGD reconstructs the object conditioned on both semantic and geometric priors.
         </p>
 
         <hr class="thin-hr">
@@ -294,7 +294,7 @@
 
         <div class="content has-text-justified">
           <p>
-            SeDiR produces more semantically consistent and spatially precise anomaly localization across diverse categories. Compared with a previous unified model (MC3D-AD), it better highlights true anomalous regions while reducing false responses on normal surfaces. These qualitative results support the claim that disentangling semantic identity before reconstruction leads to more reliable anomaly detection and localization.
+            GRIM produces more semantically consistent and spatially precise anomaly localization across diverse categories. Compared with a previous unified model (MC3D-AD), it better highlights true anomalous regions while reducing false responses on normal surfaces. These qualitative results support the claim that disentangling semantic identity before reconstruction leads to more reliable anomaly detection and localization.
           </p>
         </div>
 
@@ -305,7 +305,7 @@
           <img class="figure-wide" src="./static/images/figure6.png" alt="Qualitative Results_AS">
         </figure>
         <p class="figure-caption">
-          Qualitative comparison between MC3D-AD and SeDiR. SeDiR provides more accurate and complete localization by reconstructing features under the correct semantic prior.
+          Qualitative comparison between MC3D-AD and GRIM. GRIM provides more accurate and complete localization by reconstructing features under the correct semantic prior.
         </p>
 
       </div>
@@ -324,7 +324,7 @@
         <h2 class="title is-3 has-text-centered">Citation</h2>
         <div class="content">
 <pre><code>@article{kim2026semantically,
-  title={A Semantically Disentangled Unified Model for Multi-category 3D Anomaly Detection},
+  title={Towards Generalizable 3D Anomaly Detection via Relational Inconsistency Modeling},
   author={Kim, SuYeon and Lee, Wongyu and Cho, MyeongAh},
   journal={arXiv preprint arXiv:2603.25159},
   year={2026}
@@ -339,7 +339,7 @@
 <footer class="footer">
   <div class="content has-text-centered">
     <p class="is-size-7">
-      © 2026 SeDiR Project Page.
+      © 2026 GRIM Project Page.
     </p>
   </div>
 </footer>
