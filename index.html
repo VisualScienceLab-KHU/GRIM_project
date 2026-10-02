@@ -21,7 +21,7 @@
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
-  <!-- Keep the original SeDiR static assets -->
+  <!-- Reuse SeDiR static assets -->
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
@@ -36,7 +36,6 @@
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
 
-  <!-- GRIM-only additions. No change to index.css is required. -->
   <style>
     .section-tight {
       padding-top: 1.5rem;
@@ -44,7 +43,7 @@
     }
 
     .grim-key-message {
-      max-width: 820px;
+      max-width: 860px;
       margin: 1.2rem auto 0;
       padding: 1rem 1.25rem;
       border-left: 4px solid #4176d8;
@@ -154,6 +153,32 @@
       font-size: 0.82rem;
     }
 
+    .figure-block {
+      margin-top: 1.6rem;
+    }
+
+    .figure-block .image {
+      margin-bottom: 0.8rem;
+    }
+
+    .figure-description {
+      margin-top: 1rem;
+    }
+
+    .inline-note {
+      margin-top: 0.75rem;
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      background: #f8f9fb;
+      border: 1px solid #ebedf0;
+    }
+
+    .asset-note {
+      font-size: 0.86rem;
+      color: #666;
+      margin-top: 0.85rem;
+    }
+
     @media screen and (max-width: 768px) {
       .result-summary {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -206,7 +231,6 @@
 
           <div class="column has-text-centered" style="margin-top: 0.75rem;">
             <div class="publication-links">
-
               <!-- Add the official paper / arXiv URL after it becomes available. -->
               <!--
               <span class="link-block">
@@ -225,7 +249,6 @@
                   <span>Code</span>
                 </a>
               </span>
-
             </div>
           </div>
 
@@ -235,31 +258,6 @@
           </p>
 
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- =========================
-     SINGLE FIGURE
-     Use Paper Figure 3 as ./static/images/figure1.png
-     ========================= -->
-<section class="section section-tight teaser-hero">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <figure class="image">
-          <img class="figure-wide"
-               src="./static/images/figure1.png"
-               alt="Overview of GRIM: relational inconsistency modeling for 3D anomaly detection">
-        </figure>
-        <p class="figure-caption">
-          Overview of <b>GRIM</b>. Pseudo-anomalies provide controlled relation-violating supervision.
-          <b>Edge-aware Graph Refinement (EGR)</b> encodes geometric relations among neighboring local regions,
-          while <b>Cluster-Deviation Modeling (CDM)</b> measures each region relative to structurally similar peers
-          to produce discriminative anomaly scores.
-        </p>
       </div>
     </div>
   </div>
@@ -278,13 +276,13 @@
           <p>
             3D anomaly detection identifies defective regions in point clouds, but most existing methods are
             <b>normality-centered</b>: they learn normal data distributions and treat deviations as anomalies.
-            This can create ambiguous decision boundaries, especially in unified and cross-domain settings.
-            We propose <b>GRIM</b>, a relational inconsistency modeling framework that instead characterizes defects
-            as violations of geometric consistency among neighboring structures. GRIM learns category-agnostic
-            defect cues from controlled pseudo-anomalies and contains two main components: <b>Edge-aware Graph
-            Refinement (EGR)</b> for relation-aware local feature learning and <b>Cluster-Deviation Modeling (CDM)</b>
-            for identifying regions that are incompatible with their structural peer groups. Experiments on
-            Anomaly-ShapeNet and Real3D-AD show consistent improvements in both in-domain and cross-domain settings.
+            This creates ambiguous decision boundaries, especially in unified and cross-domain settings where diverse
+            normal distributions blur the boundary between normal and abnormal samples. We propose <b>GRIM</b>, a
+            relational inconsistency modeling framework that instead characterizes defects as violations of geometric
+            consistency among neighboring structures. GRIM learns category-agnostic defect cues from controlled
+            pseudo-anomalies and contains two main components: <b>Edge-aware Graph Refinement (EGR)</b> for
+            relation-aware local feature learning and <b>Cluster-Deviation Modeling (CDM)</b> for identifying regions
+            that are incompatible with their structural peer groups.
           </p>
         </div>
       </div>
@@ -294,27 +292,44 @@
 
 
 <!-- =========================
-     MOTIVATION
+     FIGURE 1
      ========================= -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3 has-text-centered">Why Relational Inconsistency?</h2>
+        <h2 class="title is-3 has-text-centered">Motivation: From Normality-Centered Detection to Relational Defect Learning</h2>
 
         <div class="content has-text-justified">
           <p>
-            Reconstruction- and feature-similarity-based 3D anomaly detectors usually decide abnormality from
-            deviation relative to learned normal distributions. However, a rare but valid normal structure can be
-            far from that distribution, while a real defect can still appear locally similar to normal regions.
-            These two cases lead to false positives and false negatives, and the problem becomes harder when a
-            single model must handle many categories or a previously unseen domain.
+            Prior 3D anomaly detection methods mainly learn the distribution of normal samples and classify deviations
+            as anomalies. However, this strategy does not explicitly define <i>what makes a region defective</i>.
+            As a result, rare-but-valid normal regions can be over-penalized, while real defects that still resemble
+            normal geometry can be missed.
           </p>
+        </div>
 
+        <figure class="image figure-block">
+          <img class="figure-wide" src="./static/images/figure1.png"
+               alt="Figure 1. Comparison of previous normality-centered methods and the GRIM framework.">
+        </figure>
+        <p class="figure-caption">
+          <b>Figure 1.</b> Comparison between previous normality-centered 3D anomaly detection methods and our
+          relation-based defect learning framework. GRIM uses pseudo-anomalies as controlled violations of geometric
+          relations and learns a more discriminative defect criterion, which reduces both false positives and false negatives.
+        </p>
+
+        <div class="content has-text-justified figure-description">
+          <p>
+            The left side illustrates the typical failure mode of previous approaches: the decision boundary is defined only
+            with respect to the normal data manifold, so the model can confuse unusual normal structures with anomalies and
+            fail to isolate real anomalous regions. The right side shows the key shift in GRIM: instead of only learning
+            "what normal looks like," we explicitly train the model to recognize <b>relation-violating structures</b>
+            through pseudo-anomaly generation.
+          </p>
           <div class="grim-key-message">
-            <b>Key idea.</b> GRIM does not try to enumerate every possible real-world defect. Instead, it uses
-            controlled pseudo-anomalies to teach the model a transferable criterion: <b>a defect breaks geometric
-            relations that should remain consistent among neighboring or structurally similar regions.</b>
+            <b>Key idea.</b> GRIM does not try to enumerate every possible real defect appearance. Instead, it teaches the
+            model a transferable rule: <b>defects break geometric consistency among neighboring or structurally similar regions.</b>
           </div>
         </div>
       </div>
@@ -324,49 +339,124 @@
 
 
 <!-- =========================
-     METHOD
+     FIGURE 2
      ========================= -->
 <section class="section section-alt">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3 has-text-centered">Method</h2>
+        <h2 class="title is-3 has-text-centered">Why Previous Unified 3D-AD Methods Fail</h2>
 
-        <div class="content has-text-justified" style="margin-bottom: 1.5rem;">
+        <div class="content has-text-justified">
           <p>
-            During training, GRIM starts from normal point clouds and synthesizes localized <b>bulge</b>,
-            <b>sink</b>, and <b>hole</b> perturbations. These pseudo-anomalies are not intended to reproduce the
-            full appearance distribution of real defects; they serve as controlled violations of local geometric
-            consistency. The resulting point-level masks provide explicit supervision for learning a defect criterion.
+            To analyze the weakness of normality-centered unified 3D anomaly detection, we compare GRIM with MC3D-AD
+            using two complementary perspectives: false positives at fixed true positive rates and false negatives at fixed
+            true negative rates. This analysis highlights how ambiguous decision boundaries lead to both false alarms and
+            missed detections.
           </p>
         </div>
 
-        <div class="columns is-variable is-5">
+        <figure class="image figure-block">
+          <img class="figure-wide" src="./static/images/figure2.png"
+               alt="Figure 2. False positive and false negative comparison between MC3D-AD and GRIM.">
+        </figure>
+        <p class="figure-caption">
+          <b>Figure 2.</b> Comparison of <b>False Positive Rate (FPR)</b> and <b>False Negative Rate (FNR)</b>
+          between the unified baseline MC3D-AD and GRIM. The blue curves correspond to GRIM and the gray curves to MC3D-AD.
+        </p>
+
+        <div class="content has-text-justified figure-description">
+          <p>
+            GRIM consistently yields lower FPR and FNR in both <b>in-domain</b> and <b>cross-domain</b> settings.
+            This means that GRIM not only reduces false alarms on normal regions, but also improves sensitivity to real
+            defects. The gain is especially clear in the cross-domain setting, showing that relation-based defect learning
+            generalizes better than simply modeling category-dependent normality.
+          </p>
+          <div class="inline-note">
+            <b>Interpretation.</b> A better 3D anomaly detector should suppress false responses on valid structures while still
+            detecting subtle anomalies. Figure 2 shows that GRIM achieves both simultaneously.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================
+     FIGURE 3
+     ========================= -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Proposed Method: GRIM</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            GRIM is designed around a simple principle: a model should learn <b>why</b> a region is defective,
+            not only whether it deviates from normality. The overall framework is illustrated below.
+          </p>
+        </div>
+
+        <figure class="image figure-block">
+          <img class="figure-wide" src="./static/images/figure3.png"
+               alt="Figure 3. Overall architecture of GRIM.">
+        </figure>
+        <p class="figure-caption">
+          <b>Figure 3.</b> Overview of GRIM. Starting from a normal point cloud, GRIM generates pseudo-anomalies,
+          extracts local features, refines them with <b>Edge-aware Graph Refinement (EGR)</b>, and measures
+          cluster-relative inconsistency with <b>Cluster-Deviation Modeling (CDM)</b> to produce anomaly scores.
+        </p>
+
+        <div class="columns is-variable is-5 figure-description">
           <div class="column">
             <div class="method-card">
-              <h3 class="title is-5">1. Edge-aware Graph Refinement (EGR)</h3>
+              <h3 class="title is-5">1. Pseudo-Anomaly Generation</h3>
               <div class="content has-text-justified">
                 <p>
-                  Each point cloud is partitioned into local groups and represented as a graph. Node features encode
-                  local regions, while edges describe relative centroid displacement, point-spread differences,
-                  normal inconsistency, and curvature differences. Relation-aware message passing then refines each
-                  node using the geometry of its neighbors, allowing the representation to capture structural
-                  compatibility rather than only isolated local appearance.
+                  GRIM synthesizes localized <b>bulge</b>, <b>sink</b>, and <b>hole</b> perturbations on normal point clouds.
+                  These perturbations are controlled relation-violating samples rather than attempts to exhaustively simulate
+                  all real defects. Their role is to provide explicit supervision for defect learning.
                 </p>
               </div>
             </div>
           </div>
-
           <div class="column">
             <div class="method-card">
-              <h3 class="title is-5">2. Cluster-Deviation Modeling (CDM)</h3>
+              <h3 class="title is-5">2. Edge-aware Graph Refinement (EGR)</h3>
               <div class="content has-text-justified">
                 <p>
-                  EGR-refined node features are grouped into clusters of structurally similar regions. GRIM measures
-                  how far each region deviates from its assigned cluster center and injects this cluster-relative
-                  deviation into the anomaly classifier. A deviation loss further encourages pseudo-anomalous nodes
-                  to separate from their structural peers, providing a finer-grained criterion that transfers across
-                  categories and domains.
+                  Each sample is partitioned into local groups and represented as a graph. Node features encode local regions,
+                  while edges describe relative geometric relationships such as position, normal, spread, and curvature.
+                  EGR refines the node features through relation-aware message passing.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-variable is-5" style="margin-top: 0.2rem;">
+          <div class="column">
+            <div class="method-card">
+              <h3 class="title is-5">3. Cluster-Deviation Modeling (CDM)</h3>
+              <div class="content has-text-justified">
+                <p>
+                  EGR-refined node features are clustered into structurally similar groups. GRIM computes how much each region
+                  deviates from its cluster center and injects this cluster-relative deviation into the anomaly classifier.
+                  This allows the model to detect regions that are incompatible with their structural peer group.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="method-card">
+              <h3 class="title is-5">4. Test-Time Inference</h3>
+              <div class="content has-text-justified">
+                <p>
+                  At inference time, a test point cloud passes through the same feature extractor, EGR, and CDM pipeline.
+                  The final classifier predicts anomaly scores that can be used for both <b>object-level detection</b>
+                  and <b>point-level localization</b>.
                 </p>
               </div>
             </div>
@@ -382,7 +472,7 @@
 <!-- =========================
      QUANTITATIVE RESULTS
      ========================= -->
-<section class="section">
+<section class="section section-alt">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths">
@@ -409,8 +499,8 @@
 
         <h3 class="title is-5">In-domain Comparison</h3>
         <p class="content has-text-justified">
-          Mean AUROC (%) on Anomaly-ShapeNet and Real3D-AD. O-AUROC and P-AUROC denote object-level
-          detection and point-level localization performance, respectively.
+          Mean AUROC (%) on Anomaly-ShapeNet and Real3D-AD. O-AUROC and P-AUROC denote object-level detection and
+          point-level localization performance, respectively.
         </p>
 
         <div class="performance-table-wrapper">
@@ -444,7 +534,6 @@
               <tr><td>PO3AD (CVPR'25)</td><td>83.9</td><td>89.8</td><td>76.5</td><td>65.0</td></tr>
               <tr><td>PASDF (ICCV'25)</td><td>90.0</td><td>89.7</td><td>80.2</td><td>74.5</td></tr>
               <tr><td>Reg2Inv (NeurIPS'25)</td><td>86.1</td><td>88.2</td><td>78.0</td><td>87.8</td></tr>
-
               <tr class="group-row"><td colspan="5">Unified</td></tr>
               <tr><td>MC3D-AD (IJCAI'25)</td><td>84.2</td><td>75.9</td><td>78.2</td><td>76.8</td></tr>
               <tr class="ours-row">
@@ -466,9 +555,9 @@
 
         <h3 class="title is-5">Cross-domain Generalization</h3>
         <p class="content has-text-justified">
-          Cross-domain evaluation directly applies the source-trained model to the target dataset without fine-tuning
-          or domain-specific adaptation. Parenthesized values are the corresponding in-domain performance and Δ denotes
-          the in-domain-to-cross-domain performance gap.
+          Cross-domain evaluation directly applies the source-trained model to the target dataset without fine-tuning or
+          domain-specific adaptation. Parenthesized values are the corresponding in-domain performance and Δ denotes the
+          in-domain-to-cross-domain performance gap.
         </p>
 
         <div class="performance-table-wrapper">
@@ -504,7 +593,47 @@
             </tbody>
           </table>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+
+<!-- =========================
+     FIGURE 4
+     ========================= -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Qualitative Results</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            Figure 4 compares GRIM and MC3D-AD under both <b>in-domain</b> and <b>cross-domain</b> settings.
+            The results show that GRIM localizes defects more precisely and avoids the excessive false responses that
+            often appear in normality-centered reconstruction-based baselines.
+          </p>
+        </div>
+
+        <figure class="image figure-block">
+          <img class="figure-wide" src="./static/images/figure4.png"
+               alt="Figure 4. Qualitative comparison between MC3D-AD and GRIM.">
+        </figure>
+        <p class="figure-caption">
+          <b>Figure 4.</b> Qualitative comparison between <b>MC3D-AD</b> and <b>GRIM</b>. The left half shows
+          in-domain results (trained and tested on Anomaly-ShapeNet), and the right half shows cross-domain results
+          (trained on Anomaly-ShapeNet and tested on Real3D-AD). Red regions indicate anomaly responses.
+        </p>
+
+        <div class="content has-text-justified figure-description">
+          <p>
+            MC3D-AD often produces overly broad or misplaced anomaly activation maps, especially in cross-domain cases.
+            In contrast, GRIM concentrates its responses on the actual defective regions and produces cleaner,
+            more spatially precise localization. This qualitative behavior supports the main claim of the paper:
+            <b>learning a relation-based defect criterion improves both robustness and generalization.</b>
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -520,13 +649,17 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3 has-text-centered">Citation</h2>
         <div class="content">
-<pre><code>@inproceedings{heo2026grim,
-  title     = {Towards Generalizable 3D Anomaly Detection via Relational Inconsistency Modeling},
-  author    = {Heo, KunHo and Kim, SuYeon and Lee, Hayoung and Oh, Chanse and Cho, MyeongAh},
-  booktitle = {Advances in Neural Information Processing Systems},
-  year      = {2026}
+<pre><code>@article{heo2026towards,
+  title={Towards Generalizable 3D Anomaly Detection via Relational Inconsistency Modeling},
+  author={Heo, KunHo and Kim, SuYeon and Lee, Hayoung and Oh, Chanse and Cho, MyeongAh},
+  journal={arXiv preprint arXiv:2609.35059},
+  year={2026}
 }</code></pre>
         </div>
+        <p class="asset-note">
+          Place the provided images under <code>./static/images/figure1.png</code>, <code>figure2.png</code>,
+          <code>figure3.png</code>, and <code>figure4.png</code> so that this page renders correctly.
+        </p>
       </div>
     </div>
   </div>
