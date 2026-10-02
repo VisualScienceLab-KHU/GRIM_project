@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="description"
         content="Towards Generalizable 3D Anomaly Detection via Relational Inconsistency Modeling.">
-  <meta name="keywords" content="3D Anomaly Detection, 3D Point Cloud, Semantically Disentangled Reconstruction">
+  <meta name="keywords"
+        content="3D Anomaly Detection, Point Cloud, Relational Inconsistency, Pseudo Anomaly, Edge-aware Graph Refinement, Cluster-Deviation Modeling, Unified 3D Anomaly Detection, Cross-domain Generalization">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Towards Generalizable 3D Anomaly Detection via Relational Inconsistency Modeling</title>
@@ -20,6 +21,7 @@
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
+  <!-- Keep the original SeDiR static assets -->
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
@@ -33,6 +35,131 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+
+  <!-- GRIM-only additions. No change to index.css is required. -->
+  <style>
+    .section-tight {
+      padding-top: 1.5rem;
+      padding-bottom: 2rem;
+    }
+
+    .grim-key-message {
+      max-width: 820px;
+      margin: 1.2rem auto 0;
+      padding: 1rem 1.25rem;
+      border-left: 4px solid #4176d8;
+      background: #f7f9fc;
+      border-radius: 6px;
+      text-align: left;
+    }
+
+    .method-card {
+      height: 100%;
+      padding: 1.35rem 1.45rem;
+      border: 1px solid #e6e8eb;
+      border-radius: 10px;
+      background: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.035);
+    }
+
+    .method-card .title {
+      margin-bottom: 0.65rem;
+    }
+
+    .performance-table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      margin-top: 1rem;
+      margin-bottom: 1.2rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .performance-table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      background: white;
+    }
+
+    .performance-table th,
+    .performance-table td {
+      padding: 0.58rem 0.65rem;
+      border-bottom: 1px solid #e8e8e8;
+      text-align: center;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .performance-table thead th {
+      background: #f4f6f8;
+      font-weight: 700;
+      border-top: 2px solid #5f6368;
+      border-bottom: 2px solid #9aa0a6;
+    }
+
+    .performance-table th:first-child,
+    .performance-table td:first-child {
+      text-align: left;
+    }
+
+    .performance-table .group-row td {
+      background: #fafafa;
+      font-weight: 700;
+      color: #555;
+      border-top: 1.5px solid #bdbdbd;
+    }
+
+    .performance-table .ours-row td {
+      font-weight: 700;
+      background: #eef4ff;
+      border-top: 1.5px solid #4176d8;
+      border-bottom: 1.5px solid #4176d8;
+    }
+
+    .performance-table .best {
+      font-weight: 800;
+    }
+
+    .table-note {
+      color: #666;
+      font-size: 0.88rem;
+      margin-top: 0.5rem;
+    }
+
+    .result-summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .result-box {
+      padding: 1rem 0.6rem;
+      border: 1px solid #e7e9ec;
+      border-radius: 10px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .result-box .metric {
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .result-box .metric-label {
+      margin-top: 0.25rem;
+      color: #666;
+      font-size: 0.82rem;
+    }
+
+    @media screen and (max-width: 768px) {
+      .result-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -52,24 +179,20 @@
           </h1>
 
           <p class="conference-name">
-            <span style="color: #4176d8; fontrgb(49, 162, 228): 600;">NeurIPS 2026</span>
+            <span style="color: #4176d8; font-weight: 600;">NeurIPS 2026</span>
           </p>
 
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://heokunho.github.io/">KunHo Heo</a>*,
+              <a href="https://heokunho.github.io/">KunHo Heo</a><sup>*</sup>,
             </span>
             <span class="author-block">
-              <a href="https://spoiuy3.github.io/">SuYeon Kim</a>*,
+              <a href="https://spoiuy3.github.io/">SuYeon Kim</a><sup>*</sup>,
             </span>
+            <span class="author-block">Hayoung Lee,</span>
+            <span class="author-block">Chanse Oh,</span>
             <span class="author-block">
-              Hayoung Lee,
-            </span>
-            <span class="author-block">
-              Chanse Oh,
-            </span>
-            <span class="author-block">
-              <a href="https://myeongahcho.netlify.app/">MyeongAh Cho</a>†
+              <a href="https://myeongahcho.netlify.app/">MyeongAh Cho</a><sup>†</sup>
             </span>
           </div>
 
@@ -78,29 +201,22 @@
           </div>
 
           <div class="is-size-6" style="margin-top: 0.35rem;">
-            *Equal Contribution
-          </div>
-          <div class="is-size-6" style="margin-top: 0.35rem;">
-            †Corresponding Author
+            <sup>*</sup>Equal Contribution &nbsp;&nbsp; <sup>†</sup>Corresponding Author
           </div>
 
           <div class="column has-text-centered" style="margin-top: 0.75rem;">
             <div class="publication-links">
-              <span class="link-block">
-                <a href="https://arxiv.org/abs/2603.25159"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fas fa-book-open"></i></span>
-                  <span>ArXiv</span>
-                </a>
-              </span>
 
+              <!-- Add the official paper / arXiv URL after it becomes available. -->
+              <!--
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2603.25159"
+                <a href="YOUR_PAPER_URL"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fas fa-file-pdf"></i></span>
                   <span>Paper</span>
                 </a>
               </span>
+              -->
 
               <span class="link-block">
                 <a href="https://github.com/VisualScienceLab-KHU/GRIM"
@@ -109,13 +225,13 @@
                   <span>Code</span>
                 </a>
               </span>
+
             </div>
           </div>
 
-          <!-- Balanced tagline (MoTAR + CORE), with CORE weight in wording (no highlight here) -->
           <p class="tagline">
-            GRIM resolves <b>Inter-Category Entanglement</b> in unified 3D anomaly detection<br>
-            by learning category-aware semantics before reconstruction and guiding reconstruction with geometric evidence.
+            GRIM learns an <b>explicit, category-agnostic defect criterion</b><br>
+            by modeling anomalies as relational inconsistencies among neighboring 3D structures.
           </p>
 
         </div>
@@ -126,18 +242,23 @@
 
 
 <!-- =========================
-     TEASER / FRAMEWORK (temporary: use Fig.2; later: teaser gif)
+     SINGLE FIGURE
+     Use Paper Figure 3 as ./static/images/figure1.png
      ========================= -->
 <section class="section section-tight teaser-hero">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <figure class="image">
-          <!-- TEMP now: teaser.jpeg (Figure 2). LATER: change to teaser.gif -->
-          <img class="figure-wide" src="./static/images/figure1.png" alt="GRIM teaser">
+          <img class="figure-wide"
+               src="./static/images/figure1.png"
+               alt="Overview of GRIM: relational inconsistency modeling for 3D anomaly detection">
         </figure>
         <p class="figure-caption">
-          Teaser: an overview of <b>GRIM</b>. Category-specific models require a separate model for each class, while naive unified models often suffer from inter-category feature entanglement. GRIM addresses this problem by aggregating coarse-to-fine geometric cues into category-aware global features, disentangling them via Category-Conditioned Contrastive Learning, and guiding reconstruction with input geometry.
+          Overview of <b>GRIM</b>. Pseudo-anomalies provide controlled relation-violating supervision.
+          <b>Edge-aware Graph Refinement (EGR)</b> encodes geometric relations among neighboring local regions,
+          while <b>Cluster-Deviation Modeling (CDM)</b> measures each region relative to structurally similar peers
+          to produce discriminative anomaly scores.
         </p>
       </div>
     </div>
@@ -155,7 +276,15 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            3D anomaly detection targets the detection and localization of defects in 3D point clouds trained solely on normal data. While a unified model improves scalability by learning across multiple categories, it often suffers from <b>Inter-Category Entanglement (ICE)</b>—where latent features from different categories overlap, causing the model to adopt incorrect semantic priors during reconstruction and ultimately yielding unreliable anomaly scores. To address this issue, we propose the <b>Semantically Disentangled Unified Model</b> for 3D Anomaly Detection, which reconstructs features conditioned on disentangled semantic representations. Our framework consists of three key components: (i) <b>Coarse-to-Fine Global Tokenization</b> for forming instance-level semantic identity, (ii) <b>Category-Conditioned Contrastive Learning</b> for disentangling category semantics, and (iii) a <b>Geometry-Guided Decoder</b> for semantically consistent reconstruction. Extensive experiments on Real3D-AD and Anomaly-ShapeNet demonstrate that our method achieves state-of-the-art for both unified and category-specific models, improving object-level AUROC by 2.8% and 9.1%, respectively, while enhancing the reliability of unified 3D anomaly detection.
+            3D anomaly detection identifies defective regions in point clouds, but most existing methods are
+            <b>normality-centered</b>: they learn normal data distributions and treat deviations as anomalies.
+            This can create ambiguous decision boundaries, especially in unified and cross-domain settings.
+            We propose <b>GRIM</b>, a relational inconsistency modeling framework that instead characterizes defects
+            as violations of geometric consistency among neighboring structures. GRIM learns category-agnostic
+            defect cues from controlled pseudo-anomalies and contains two main components: <b>Edge-aware Graph
+            Refinement (EGR)</b> for relation-aware local feature learning and <b>Cluster-Deviation Modeling (CDM)</b>
+            for identifying regions that are incompatible with their structural peer groups. Experiments on
+            Anomaly-ShapeNet and Real3D-AD show consistent improvements in both in-domain and cross-domain settings.
           </p>
         </div>
       </div>
@@ -165,28 +294,28 @@
 
 
 <!-- =========================
-     CORE CONTRIBUTIONS
+     MOTIVATION
      ========================= -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3 has-text-centered">Core Contributions</h2>
-        <div class="content">
-          <ol>
-            <li>
-              We identify <b>Inter-Category Entanglement (ICE)</b> as a fundamental bottleneck of unified 3D anomaly detection and reformulate unified 3D-AD as semantically conditioned reconstruction.
-            </li>
-            <li>
-              We propose <b>Coarse-to-Fine Global Tokenization (CFGT)</b>, which aggregates multi-resolution geometric cues into a category-aware global representation for reliable semantic identity formation.
-            </li>
-            <li>
-              We introduce <b>Category-Conditioned Contrastive Learning (C3L)</b> and a <b>Geometry-Guided Decoder (GGD)</b> to disentangle category semantics and reconstruct features with both semantic and geometric consistency.
-            </li>
-            <li>
-              Extensive experiments on Real3D-AD and Anomaly-ShapeNet demonstrate strong gains over prior methods and validate the effectiveness of semantically disentangled reconstruction in unified 3D anomaly detection.
-            </li>
-          </ol>
+        <h2 class="title is-3 has-text-centered">Why Relational Inconsistency?</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            Reconstruction- and feature-similarity-based 3D anomaly detectors usually decide abnormality from
+            deviation relative to learned normal distributions. However, a rare but valid normal structure can be
+            far from that distribution, while a real defect can still appear locally similar to normal regions.
+            These two cases lead to false positives and false negatives, and the problem becomes harder when a
+            single model must handle many categories or a previously unseen domain.
+          </p>
+
+          <div class="grim-key-message">
+            <b>Key idea.</b> GRIM does not try to enumerate every possible real-world defect. Instead, it uses
+            controlled pseudo-anomalies to teach the model a transferable criterion: <b>a defect breaks geometric
+            relations that should remain consistent among neighboring or structurally similar regions.</b>
+          </div>
         </div>
       </div>
     </div>
@@ -195,93 +324,51 @@
 
 
 <!-- =========================
-     MOTIVATION / PARADIGM FIGURE (PDF Fig.1)
-     ========================= -->
-<section class="section section-alt">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Why Semantically Disentangled Unified 3D-AD?</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            Prior 3D anomaly detection methods are largely category-specific, requiring a separate model for each object class. Although recent unified methods improve scalability by training a single model across multiple categories, they often fail to preserve semantic identity in the latent space. As a result, the model may reconstruct an object under the wrong category prior, even when the input is normal. GRIM addresses this limitation by explicitly disentangling category-level semantics before reconstruction and by conditioning reconstruction on both semantic and geometric priors.
-          </p>
-
-          <!-- (1/2) only: highlight a single key sentence about CORE -->
-          <p class="note-box note-core">
-            <span class="hl-core"><b>Key point:</b> the central issue is not simply reconstructing anomalies, but reconstructing before <b>understanding what is being reconstructed</b>. GRIM resolves this by establishing semantic identity first and reconstructing second.</span>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =========================
-     MOTIVATION / PARADIGM FIGURE (PDF Fig.1)
-     ========================= -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Why Unified 3D-AD Fails: Inter-Category Entanglement</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            We analyze the latent space of a unified baseline and observe that semantically different categories form heavily overlapping feature clusters rather than distinct semantic manifolds. In particular, categories such as chicken, duck, and gemstone exhibit clear entanglement in the latent space. Furthermore, normal samples with lower category classification scores tend to show higher reconstruction errors, indicating that incorrect semantic understanding leads directly to incorrect reconstruction. These observations confirm that ICE is not a random side effect, but a systematic bottleneck in unified 3D anomaly detection.
-          </p>
-
-        <figure class="image">
-          <img class="figure-wide" src="./static/images/figure2.png" alt="WVAD paradigms comparison">
-        </figure>
-        <p class="figure-caption">
-          T-SNE visualization and quantitative analysis of semantic disentanglement. Compared with MC3D-AD, GRIM forms better-separated category-aware manifolds, improves category classification confidence, and reduces normal reconstruction error.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- =========================
-     PROPOSED METHOD
+     METHOD
      ========================= -->
 <section class="section section-alt">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3 has-text-centered">Proposed Method</h2>
+        <h2 class="title is-3 has-text-centered">Method</h2>
 
-        <div class="content has-text-justified">
+        <div class="content has-text-justified" style="margin-bottom: 1.5rem;">
           <p>
-            GRIM follows a simple principle: <b>understand what to reconstruct</b> before deciding how to reconstruct. Given an input point cloud, GRIM first extracts multi-resolution geometric features and aggregates them into a category-aware global token. It then disentangles category semantics in the latent space and reconstructs features using both semantic priors and geometry-guided cues. This design enables semantically aligned and geometrically consistent reconstruction in the unified multi-category setting.
+            During training, GRIM starts from normal point clouds and synthesizes localized <b>bulge</b>,
+            <b>sink</b>, and <b>hole</b> perturbations. These pseudo-anomalies are not intended to reproduce the
+            full appearance distribution of real defects; they serve as controlled violations of local geometric
+            consistency. The resulting point-level masks provide explicit supervision for learning a defect criterion.
           </p>
         </div>
 
-        <!-- Keep this figure even if teaser is currently Fig.2 -->
-        <figure class="image">
-          <img class="figure-wide" src="./static/images/figure3.png" alt="Overall architecture of GRIM">
-        </figure>
-        <p class="figure-caption">
-          Overall architecture of GRIM. Our framework consists of two stages: Semantically Disentangled Representation Learning and Semantically Disentangled Reconstruction. CFGT forms a category-aware global token from multi-resolution geometric features, C3L disentangles latent semantics, and GGD reconstructs the object conditioned on both semantic and geometric priors.
-        </p>
-
-        <hr class="thin-hr">
-
-        <div class="columns is-variable is-6 is-vcentered">
+        <div class="columns is-variable is-5">
           <div class="column">
-            <h3 class="title is-5">GGD: Geometry-Guided Decoder</h3>
-            <figure class="image">
-              <img src="./static/images/figure4.png" alt="GGD overview">
-            </figure>
+            <div class="method-card">
+              <h3 class="title is-5">1. Edge-aware Graph Refinement (EGR)</h3>
+              <div class="content has-text-justified">
+                <p>
+                  Each point cloud is partitioned into local groups and represented as a graph. Node features encode
+                  local regions, while edges describe relative centroid displacement, point-spread differences,
+                  normal inconsistency, and curvature differences. Relation-aware message passing then refines each
+                  node using the geometry of its neighbors, allowing the representation to capture structural
+                  compatibility rather than only isolated local appearance.
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div class="column is-flex is-align-items-center">
-            <div class="content has-text-justified">
-              <p>
-                The Geometry-Guided Decoder reconstructs features using both disentangled semantic priors and local geometric evidence. Instead of decoding blindly from latent features, the decoder is softly biased toward category-consistent reconstruction pathways. This helps ensure that geometry is reconstructed according to the correct semantic identity, leading to more stable anomaly scores and more precise localization.
-              </p>
+          <div class="column">
+            <div class="method-card">
+              <h3 class="title is-5">2. Cluster-Deviation Modeling (CDM)</h3>
+              <div class="content has-text-justified">
+                <p>
+                  EGR-refined node features are grouped into clusters of structurally similar regions. GRIM measures
+                  how far each region deviates from its assigned cluster center and injects this cluster-relative
+                  deviation into the anomaly classifier. A deviation loss further encourages pseudo-anomalous nodes
+                  to separate from their structural peers, providing a finer-grained criterion that transfers across
+                  categories and domains.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -293,29 +380,130 @@
 
 
 <!-- =========================
-     QUALITATIVE (Fig.5)
+     QUANTITATIVE RESULTS
      ========================= -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3 has-text-centered">Qualitative Results</h2>
+        <h2 class="title is-3 has-text-centered">Quantitative Results</h2>
 
-        <div class="content has-text-justified">
-          <p>
-            GRIM produces more semantically consistent and spatially precise anomaly localization across diverse categories. Compared with a previous unified model (MC3D-AD), it better highlights true anomalous regions while reducing false responses on normal surfaces. These qualitative results support the claim that disentangling semantic identity before reconstruction leads to more reliable anomaly detection and localization.
-          </p>
+        <div class="result-summary">
+          <div class="result-box">
+            <div class="metric">97.4</div>
+            <div class="metric-label">Anomaly-ShapeNet<br>O-AUROC</div>
+          </div>
+          <div class="result-box">
+            <div class="metric">94.5</div>
+            <div class="metric-label">Anomaly-ShapeNet<br>P-AUROC</div>
+          </div>
+          <div class="result-box">
+            <div class="metric">87.2</div>
+            <div class="metric-label">Real3D-AD<br>O-AUROC</div>
+          </div>
+          <div class="result-box">
+            <div class="metric">91.3</div>
+            <div class="metric-label">Real3D-AD<br>P-AUROC</div>
+          </div>
         </div>
 
-        <figure class="image">
-          <img class="figure-wide" src="./static/images/figure5.png" alt="Qualitative Results_real3d">
-        </figure>
-        <figure class="image">
-          <img class="figure-wide" src="./static/images/figure6.png" alt="Qualitative Results_AS">
-        </figure>
-        <p class="figure-caption">
-          Qualitative comparison between MC3D-AD and GRIM. GRIM provides more accurate and complete localization by reconstructing features under the correct semantic prior.
+        <h3 class="title is-5">In-domain Comparison</h3>
+        <p class="content has-text-justified">
+          Mean AUROC (%) on Anomaly-ShapeNet and Real3D-AD. O-AUROC and P-AUROC denote object-level
+          detection and point-level localization performance, respectively.
         </p>
+
+        <div class="performance-table-wrapper">
+          <table class="performance-table">
+            <thead>
+              <tr>
+                <th rowspan="2">Method</th>
+                <th colspan="2">Anomaly-ShapeNet</th>
+                <th colspan="2">Real3D-AD</th>
+              </tr>
+              <tr>
+                <th>O-AUROC ↑</th>
+                <th>P-AUROC ↑</th>
+                <th>O-AUROC ↑</th>
+                <th>P-AUROC ↑</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="group-row"><td colspan="5">Category-Specific</td></tr>
+              <tr><td>BTF (Raw) (CVPR'23)</td><td>49.3</td><td>55.0</td><td>63.5</td><td>57.1</td></tr>
+              <tr><td>BTF (FPFH)</td><td>52.8</td><td>62.8</td><td>60.3</td><td>73.3</td></tr>
+              <tr><td>M3DM (CVPR'23)</td><td>55.2</td><td>61.6</td><td>59.4</td><td>62.0</td></tr>
+              <tr><td>PatchCore (FPFH) (CVPR'22)</td><td>56.8</td><td>58.0</td><td>59.3</td><td>68.2</td></tr>
+              <tr><td>PatchCore (PointMAE)</td><td>56.2</td><td>57.7</td><td>59.4</td><td>62.0</td></tr>
+              <tr><td>CPMF (PR'24)</td><td>55.9</td><td>57.3</td><td>58.6</td><td>75.8</td></tr>
+              <tr><td>IMRNet (CVPR'24)</td><td>66.1</td><td>65.0</td><td>72.5</td><td>-</td></tr>
+              <tr><td>Reg3D-AD (NeurIPS'23)</td><td>57.2</td><td>66.8</td><td>70.4</td><td>70.5</td></tr>
+              <tr><td>Group3AD (ACM MM'24)</td><td>-</td><td>-</td><td>75.1</td><td>73.5</td></tr>
+              <tr><td>R3D-AD (ECCV'24)</td><td>74.9</td><td>-</td><td>73.4</td><td>-</td></tr>
+              <tr><td>ISMP (AAAI'25)</td><td>-</td><td>69.1</td><td>76.7</td><td>83.6</td></tr>
+              <tr><td>PO3AD (CVPR'25)</td><td>83.9</td><td>89.8</td><td>76.5</td><td>65.0</td></tr>
+              <tr><td>PASDF (ICCV'25)</td><td>90.0</td><td>89.7</td><td>80.2</td><td>74.5</td></tr>
+              <tr><td>Reg2Inv (NeurIPS'25)</td><td>86.1</td><td>88.2</td><td>78.0</td><td>87.8</td></tr>
+
+              <tr class="group-row"><td colspan="5">Unified</td></tr>
+              <tr><td>MC3D-AD (IJCAI'25)</td><td>84.2</td><td>75.9</td><td>78.2</td><td>76.8</td></tr>
+              <tr class="ours-row">
+                <td>GRIM (Ours)</td>
+                <td class="best">97.4</td>
+                <td class="best">94.5</td>
+                <td class="best">87.2</td>
+                <td class="best">91.3</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="table-note">
+          GRIM is trained as one unified model across categories, without category labels or category-specific parameters.
+        </p>
+
+        <hr class="thin-hr" style="margin: 2.2rem 0;">
+
+        <h3 class="title is-5">Cross-domain Generalization</h3>
+        <p class="content has-text-justified">
+          Cross-domain evaluation directly applies the source-trained model to the target dataset without fine-tuning
+          or domain-specific adaptation. Parenthesized values are the corresponding in-domain performance and Δ denotes
+          the in-domain-to-cross-domain performance gap.
+        </p>
+
+        <div class="performance-table-wrapper">
+          <table class="performance-table">
+            <thead>
+              <tr>
+                <th rowspan="2">Method</th>
+                <th colspan="4">Anomaly-ShapeNet → Real3D-AD</th>
+                <th colspan="4">Real3D-AD → Anomaly-ShapeNet</th>
+              </tr>
+              <tr>
+                <th>O-AUROC ↑</th>
+                <th>Δ ↓</th>
+                <th>P-AUROC ↑</th>
+                <th>Δ ↓</th>
+                <th>O-AUROC ↑</th>
+                <th>Δ ↓</th>
+                <th>P-AUROC ↑</th>
+                <th>Δ ↓</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>MC3D-AD</td>
+                <td>55.4 (78.2)</td><td>22.8</td><td>38.3 (76.8)</td><td>38.5</td>
+                <td>78.3 (84.2)</td><td>5.9</td><td>48.8 (75.9)</td><td>27.1</td>
+              </tr>
+              <tr class="ours-row">
+                <td>GRIM (Ours)</td>
+                <td>83.6 (87.2)</td><td>3.6</td><td>89.6 (91.3)</td><td>1.7</td>
+                <td>91.7 (97.4)</td><td>5.7</td><td>78.9 (94.5)</td><td>15.6</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
       </div>
     </div>
@@ -332,11 +520,11 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3 has-text-centered">Citation</h2>
         <div class="content">
-<pre><code>@article{kim2026semantically,
-  title={Towards Generalizable 3D Anomaly Detection via Relational Inconsistency Modeling},
-  author={Kim, SuYeon and Lee, Wongyu and Cho, MyeongAh},
-  journal={arXiv preprint arXiv:2603.25159},
-  year={2026}
+<pre><code>@inproceedings{heo2026grim,
+  title     = {Towards Generalizable 3D Anomaly Detection via Relational Inconsistency Modeling},
+  author    = {Heo, KunHo and Kim, SuYeon and Lee, Hayoung and Oh, Chanse and Cho, MyeongAh},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2026}
 }</code></pre>
         </div>
       </div>
@@ -348,7 +536,7 @@
 <footer class="footer">
   <div class="content has-text-centered">
     <p class="is-size-7">
-      © 2026 GRIM Project Page.
+      © 2026 GRIM Project Page. Website template adapted from the SeDiR / Nerfies project-page style.
     </p>
   </div>
 </footer>
