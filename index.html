@@ -179,6 +179,19 @@
       margin-top: 0.85rem;
     }
 
+    .performance-table .group-row td {
+      background: #fafafa;
+      font-weight: 700;
+      color: #555;
+      border-top: 1.5px solid #bdbdbd;
+      text-align: center !important;
+    }
+
+    /* Center multi-column dataset/domain headers */
+    .performance-table thead th[colspan] {
+      text-align: center !important;
+    }
+
     @media screen and (max-width: 768px) {
       .result-summary {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -214,8 +227,12 @@
             <span class="author-block">
               <a href="https://spoiuy3.github.io/">SuYeon Kim</a><sup>*</sup>,
             </span>
-            <span class="author-block">Hayoung Lee,</span>
-            <span class="author-block">Chanse Oh,</span>
+            <span class="author-block">
+              <a href="https://carpal-money-c50.notion.site/Hayoung-Lee-cb5c3a0ec0ed4e1c9d63b9a43a1e689e">Hayoung Lee</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://ginger-parrotfish-83b.notion.site/My-Portfolio-f58f2041e65145ac9f4d74815a722e1d">Chanse Oh</a>,
+            </span>
             <span class="author-block">
               <a href="https://myeongahcho.netlify.app/">MyeongAh Cho</a><sup>†</sup>
             </span>
@@ -231,16 +248,21 @@
 
           <div class="column has-text-centered" style="margin-top: 0.75rem;">
             <div class="publication-links">
-              <!-- Add the official paper / arXiv URL after it becomes available. -->
-              <!--
               <span class="link-block">
-                <a href="YOUR_PAPER_URL"
+                <a href="https://arxiv.org/abs/2609.35059"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-book-open"></i></span>
+                  <span>ArXiv</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2609.35059"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fas fa-file-pdf"></i></span>
                   <span>Paper</span>
                 </a>
               </span>
-              -->
 
               <span class="link-block">
                 <a href="https://github.com/VisualScienceLab-KHU/GRIM"
@@ -310,7 +332,7 @@
         </div>
 
         <figure class="image figure-block">
-          <img class="figure-wide" src="./static/images/Figure1.png"
+          <img class="figure-wide" src="./static/images/figure1.png"
                alt="Figure 1. Comparison of previous normality-centered methods and the GRIM framework.">
         </figure>
         <p class="figure-caption">
@@ -357,7 +379,7 @@
         </div>
 
         <figure class="image figure-block">
-          <img class="figure-wide" src="./static/images/Figure2.png"
+          <img class="figure-wide" src="./static/images/figure2.png"
                alt="Figure 2. False positive and false negative comparison between MC3D-AD and GRIM.">
         </figure>
         <p class="figure-caption">
@@ -400,7 +422,7 @@
         </div>
 
         <figure class="image figure-block">
-          <img class="figure-wide" src="./static/images/Figure3.png"
+          <img class="figure-wide" src="./static/images/figure3.png"
                alt="Figure 3. Overall architecture of GRIM.">
         </figure>
         <p class="figure-caption">
@@ -617,7 +639,7 @@
         </div>
 
         <figure class="image figure-block">
-          <img class="figure-wide" src="./static/images/Figure4.png"
+          <img class="figure-wide" src="./static/images/figure4.png"
                alt="Figure 4. Qualitative comparison between MC3D-AD and GRIM.">
         </figure>
         <p class="figure-caption">
